@@ -1,0 +1,22 @@
+"""
+Definition of Interval:
+class Interval(object):
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+"""
+
+class Solution:
+    def canAttendMeetings(self, intervals: List[Interval]) -> bool:
+        intervals.sort(key=lambda x: x.start)
+        heap = []
+        for interval in intervals:
+            if heap:
+                if heap[-1] > interval.start:
+                    return False
+                heapq.heappop(heap)
+            heapq.heappush(heap, interval.end)
+        
+        return True
+
+
